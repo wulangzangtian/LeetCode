@@ -570,7 +570,7 @@ public class LeetCodeUtil {
      *
      * @param matrix 二维数组
      */
-    public void rotate(int[][] matrix) {
+    public static void rotate(int[][] matrix) {
         for (int i = 0; i < matrix.length / 2; i++) {
             int[] temp = matrix[i];
             matrix[i] = matrix[matrix.length - i - 1];
@@ -591,7 +591,7 @@ public class LeetCodeUtil {
      *
      * @param s 字符串
      */
-    public void reverseString(char[] s) {
+    public static void reverseString(char[] s) {
         int length = s.length;
         int head = 0;
         int end = length - 1;
@@ -609,7 +609,7 @@ public class LeetCodeUtil {
      * @param x 整数
      * @return 反转之后的数
      */
-    public int reverse(int x) {
+    public static int reverse(int x) {
         long res = 0;
         while (x != 0) {
             res = res * 10 + x % 10;
@@ -618,5 +618,75 @@ public class LeetCodeUtil {
         return (int) res == res ? (int) res : 0;
     }
 
+    /**
+     * 找出第一个不重复的字符
+     *
+     * @param s 字符串
+     * @return 字符
+     */
+    public static int firstUniqChar(String s) {
+//        HashMap<Character, Integer> rep = new HashMap<>();
+//        for (int i = 0; i < s.length(); i++) {
+//            rep.put(s.charAt(i),rep.getOrDefault(s.charAt(i),0) + 1);
+//        }
+//        for (int i = 0; i < s.length(); i++) {
+//            if (rep.get(s.charAt(i) )== 1) {
+//                return i;
+//            }
+//        }
+//        return 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.indexOf(s.charAt(i)) == s.lastIndexOf(s.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
+    /**
+     * 字母同异词
+     *
+     * @param s 字符串
+     * @param t 字符串
+     * @return 是否是
+     */
+    public static boolean isAnagram1(String s, String t) {
+        int sLength = s.length();
+        int tLength = t.length();
+        if (sLength != tLength){
+            return false;
+        }
+        HashMap<Character, Integer> rep1 = new HashMap<>();
+        HashMap<Character, Integer> rep2 = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            rep1.put(s.charAt(i), rep1.getOrDefault(s.charAt(i), 0) + 1);
+            rep2.put(t.charAt(i), rep2.getOrDefault(t.charAt(i), 0) + 1);
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (!rep1.get(s.charAt(i)).equals(rep2.get(s.charAt(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 字母同异词
+     *
+     * @param s 字符串
+     * @param t 字符串
+     * @return 是否是
+     */
+    public static boolean isAnagram(String s, String t) {
+        char[] sChar = s.toCharArray();
+        char[] tChar = t.toCharArray();
+        Arrays.sort(sChar);
+        Arrays.sort(tChar);
+        for (int i = 0;i<s.length();i++){
+            if (sChar[i] != tChar[i]){
+                return false;
+            }
+        }
+        return true;
+    }
 }
