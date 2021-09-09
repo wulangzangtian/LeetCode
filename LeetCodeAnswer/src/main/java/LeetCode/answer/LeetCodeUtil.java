@@ -8,6 +8,7 @@ import java.util.*;
  * @author 许炼江
  * @CreatTime 2021/6/4-13:25
  */
+@SuppressWarnings("")
 public class LeetCodeUtil {
     /**
      * 加密，前面为原始数据
@@ -538,10 +539,10 @@ public class LeetCodeUtil {
     }
 
     /**
-     * sudoku is alive
+     * 数独是否一眼望去没错
      *
-     * @param board sodoku
-     * @return alive
+     * @param board 数独 空白用.
+     * @return 是否正确
      */
     public static boolean isValidSudoku(char[][] board) {
         int boardLength = board.length;
@@ -564,6 +565,11 @@ public class LeetCodeUtil {
         return true;
     }
 
+    /**
+     * 旋转图像：先上下交换再对称交换
+     *
+     * @param matrix 二维数组
+     */
     public void rotate(int[][] matrix) {
         for (int i = 0; i < matrix.length / 2; i++) {
             int[] temp = matrix[i];
@@ -579,4 +585,38 @@ public class LeetCodeUtil {
             }
         }
     }
+
+    /**
+     * 反转字符串
+     *
+     * @param s 字符串
+     */
+    public void reverseString(char[] s) {
+        int length = s.length;
+        int head = 0;
+        int end = length - 1;
+        char temp = ' ';
+        while (head < end) {
+            temp = s[head];
+            s[head++] = s[end];
+            s[end--] = temp;
+        }
+    }
+
+    /**
+     * 反转整数
+     *
+     * @param x 整数
+     * @return 反转之后的数
+     */
+    public int reverse(int x) {
+        long res = 0;
+        while (x != 0) {
+            res = res * 10 + x % 10;
+            x /= 10;
+        }
+        return (int) res == res ? (int) res : 0;
+    }
+
+
 }
