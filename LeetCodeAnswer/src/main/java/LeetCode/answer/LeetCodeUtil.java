@@ -456,6 +456,7 @@ public class LeetCodeUtil {
 
     /**
      * leetcode502 IPO
+     *
      * @param k
      * @param w
      * @param profits
@@ -488,6 +489,7 @@ public class LeetCodeUtil {
 
     /**
      * 求两个数组的交集
+     *
      * @param nums1 数组1
      * @param nums2 数组2
      * @return 交集
@@ -517,19 +519,63 @@ public class LeetCodeUtil {
 
     /**
      * 移动0
+     *
      * @param nums 数组
      */
     public static void moveZeroes(int[] nums) {
         int p1 = 0;
         int p2 = 1;
-        while (p1 < nums.length && p2 < nums.length){
-            if (nums[p1] == 0 && nums[p2] !=0 ){
-                swap(nums, p1++,p2++);
-            }else if (nums[p1] == 0 && nums[p2] ==0 ){
+        while (p1 < nums.length && p2 < nums.length) {
+            if (nums[p1] == 0 && nums[p2] != 0) {
+                swap(nums, p1++, p2++);
+            } else if (nums[p1] == 0 && nums[p2] == 0) {
                 p2++;
-            }else {
+            } else {
                 p1++;
                 p2++;
+            }
+        }
+    }
+
+    /**
+     * sudoku is alive
+     *
+     * @param board sodoku
+     * @return alive
+     */
+    public static boolean isValidSudoku(char[][] board) {
+        int boardLength = board.length;
+        int[][] line = new int[boardLength][boardLength];
+        int[][] row = new int[boardLength][boardLength];
+        int[][] cell = new int[boardLength][boardLength];
+        for (int i = 0; i < boardLength; i++) {
+            for (int j = 0; j < boardLength; j++) {
+                if (board[i][j] == '.') {
+                    continue;
+                }
+                int num = board[i][j] - '0' - 1;
+                int k = i / 3 * 3 + j / 3;
+                if (line[i][num] != 0 || row[j][num] != 0 || cell[k][num] != 0) {
+                    return false;
+                }
+                line[i][num] = row[j][num] = cell[k][num] = 1;
+            }
+        }
+        return true;
+    }
+
+    public void rotate(int[][] matrix) {
+        for (int i = 0; i < matrix.length / 2; i++) {
+            int[] temp = matrix[i];
+            matrix[i] = matrix[matrix.length - i - 1];
+            matrix[matrix.length - i - 1] = temp;
+        }
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = i + 1; j < matrix.length; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
             }
         }
     }
