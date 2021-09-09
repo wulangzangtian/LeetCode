@@ -653,7 +653,7 @@ public class LeetCodeUtil {
     public static boolean isAnagram1(String s, String t) {
         int sLength = s.length();
         int tLength = t.length();
-        if (sLength != tLength){
+        if (sLength != tLength) {
             return false;
         }
         HashMap<Character, Integer> rep1 = new HashMap<>();
@@ -682,11 +682,6 @@ public class LeetCodeUtil {
         char[] tChar = t.toCharArray();
         Arrays.sort(sChar);
         Arrays.sort(tChar);
-        for (int i = 0;i<s.length();i++){
-            if (sChar[i] != tChar[i]){
-                return false;
-            }
-        }
-        return true;
+        return Arrays.equals(sChar, tChar);
     }
 }
