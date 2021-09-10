@@ -6,8 +6,9 @@ import LeetCode.answer.LeetCodeUtil;
  */
 public class Test {
     public static void main(String[] args) {
-        String s = "anagram";
-        String t = "nagaram";
-        System.out.println(LeetCodeUtil.isAnagram(s, t));
+        String s = "      -00454674600 anagram      ";
+        String t = "21474836460";
+        int[] chalk = new int[]{0};
+        System.out.println(LeetCodeUtil.myAtoi(t));
     }
 }

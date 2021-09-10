@@ -684,4 +684,68 @@ public class LeetCodeUtil {
         Arrays.sort(tChar);
         return Arrays.equals(sChar, tChar);
     }
+
+    /**
+     * 补充粉笔数
+     *
+     * @param chalk 每个人需要的粉笔数
+     * @param k     总粉笔数
+     * @return 学生编号
+     */
+    public static int chalkReplacer(int[] chalk, int k) {
+        long sum = 0;
+        for (int i : chalk) {
+            sum += i;
+        }
+        if (k >= sum) {
+            k = k % (int) sum;
+        }
+        for (int i = 0; i < chalk.length; i++) {
+            if (chalk[i] > k) {
+                return i;
+            }
+            k -= chalk[i];
+        }
+        return -1;
+    }
+
+    /**
+     * 字符串变成整数
+     * @param s 字符串
+     * @return 整数
+     */
+    public static int myAtoi(String s) {
+        int result = 0;
+        s = s.trim();
+        char[] sChar = s.toCharArray();
+        int sign = 1;
+        int index = 0;
+        int temp = 0;
+        if(s.length() <= index){
+            return 0;
+        }
+        if (sChar[0] == '-' || sChar[0] == '+') {
+            if (sChar[0] == '-') {
+                sign = -1;
+            }
+            index++;
+        }
+        while (index < s.length()) {
+            if (!Character.isDigit(sChar[index])) {
+                break;
+            }
+            int num = sChar[index] - '0';
+            temp =result;
+            result = result * 10 + num;
+            if (result / 10 != temp) {
+                if (sign > 0) {
+                    return Integer.MAX_VALUE;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+            index++;
+        }
+        return result * sign;
+    }
 }
