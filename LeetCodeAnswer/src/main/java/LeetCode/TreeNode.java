@@ -28,4 +28,30 @@ public class TreeNode {
         this.left = left;
         this.right = right;
     }
+
+    /**
+     * 最大深度
+     *
+     * @param root 根节点
+     * @return 深度
+     */
+    public int maxDepth(TreeNode root) {
+        return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+
+    /**
+     * 二叉搜索树
+     *
+     * @param root 根节点
+     * @return 是否是
+     */
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return true;
+        if ((root.right == null || root.val < root.right.val) &&
+                (root.left == null || root.val > root.left.val)) {
+            return isValidBST(root.right) && isValidBST(root.left);
+        } else {
+            return false;
+        }
+    }
 }
