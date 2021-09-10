@@ -3,6 +3,7 @@ package LeetCode.answer;
 import LeetCode.enumUtil.DayEnum;
 
 import java.util.*;
+import java.util.zip.CheckedOutputStream;
 
 /**
  * @author 许炼江
@@ -711,6 +712,7 @@ public class LeetCodeUtil {
 
     /**
      * 字符串变成整数
+     *
      * @param s 字符串
      * @return 整数
      */
@@ -721,7 +723,7 @@ public class LeetCodeUtil {
         int sign = 1;
         int index = 0;
         int temp = 0;
-        if(s.length() <= index){
+        if (s.length() <= index) {
             return 0;
         }
         if (sChar[0] == '-' || sChar[0] == '+') {
@@ -735,7 +737,7 @@ public class LeetCodeUtil {
                 break;
             }
             int num = sChar[index] - '0';
-            temp =result;
+            temp = result;
             result = result * 10 + num;
             if (result / 10 != temp) {
                 if (sign > 0) {
@@ -747,5 +749,71 @@ public class LeetCodeUtil {
             index++;
         }
         return result * sign;
+    }
+
+    /**
+     * 外观数列
+     *
+     * @param n 次数
+     * @return 数列字符串
+     */
+    public static String countAndSay(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        String s = countAndSay(n - 1);
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+        for (int i = 0; i < s.length(); i++) {
+            if (i == s.length() - 1 || s.charAt(i) != s.charAt(i + 1)) {
+                sb.append(count).append(s.charAt(i));
+                count = 1;
+            } else {
+                count++;
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 最长公共前缀
+     *
+     * @param strs 字符串数组
+     * @return 前缀
+     */
+    public static String longestCommonPrefix(String[] strs) {
+        if (strs.length < 1) {
+            return "";
+        }
+        String s = strs[0];
+        int index = 0;
+        while (index < strs.length - 1) {
+            s = CommonPrefix(s, strs[index + 1]);
+            if ("".equals(s)) {
+                return "";
+            }
+            index++;
+        }
+        return s;
+    }
+
+    /**
+     * 两个字符串前缀
+     *
+     * @param str1 字符串1
+     * @param str2 字符串2
+     * @return 公共前缀
+     */
+    public static String CommonPrefix(String str1, String str2) {
+        int p1 = 0;
+        StringBuilder sb = new StringBuilder();
+        while (p1 < str2.length()) {
+            if (str1.charAt(p1) == str2.charAt(p1)) {
+                sb.append(str1.charAt(p1++));
+            } else {
+                break;
+            }
+        }
+        return sb.toString();
     }
 }
