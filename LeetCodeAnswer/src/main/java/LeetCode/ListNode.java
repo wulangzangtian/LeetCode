@@ -33,4 +33,8 @@ public class ListNode {
         node.val = node.next.val;
         node.next = node.next.next;
     }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        return null;
+    }
 }

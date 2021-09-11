@@ -817,4 +817,33 @@ public class LeetCodeUtil {
         }
         return sb.toString();
     }
+
+    /**
+     * 找出二进制中不连续含有1的个数
+     *
+     * @param n 小于等于n的非负整数
+     * @return 个数
+     */
+    public static int findIntegers(int n) {
+        int isNum = 0;
+        int thisReminder;
+        int lastReminder = 0;
+        for (int i = n; i >=0; i--) {
+            int temp = i;
+            while (temp > 0) {
+                thisReminder = temp % 2;
+                if (thisReminder == 1 && lastReminder == 1) {
+//                    System.out.println("数字不符合条件:" + i);
+                    break;
+                }
+                temp /= 2;
+                lastReminder = thisReminder;
+            }
+            if (temp == 0) {
+                isNum++;
+            }
+            lastReminder = 0;
+        }
+        return isNum;
+    }
 }

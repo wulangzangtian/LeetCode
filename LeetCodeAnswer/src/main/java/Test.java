@@ -10,7 +10,10 @@ public class Test {
         String t = "anan";
         String[] strings = new String[]{"anagram", "anan","s"};
         int[] chalk = new int[]{0};
-        int n = 7;
-        System.out.println(LeetCodeUtil.longestCommonPrefix(strings));
+        int n = Integer.MAX_VALUE;
+        long start = System.currentTimeMillis();
+        System.out.println(LeetCodeUtil.findIntegers(n));
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
     }
 }
