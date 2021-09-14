@@ -458,6 +458,39 @@ public class LeetCodeUtil {
     }
 
     /**
+     * 最大利润
+     *
+     * @param prices 每天价格
+     * @return 单利润
+     */
+    public static int maxProfitOne(int[] prices) {
+        int[] max = new int[prices.length - 1];
+        for (int i = 0; i < prices.length - 1; i++) {
+            max[i] = prices[i + 1] - prices[i];
+        }
+        return maxSubArray(max);
+    }
+
+    /**
+     * 最大子序和
+     *
+     * @param nums
+     * @return
+     */
+    public static int maxSubArray(int[] nums) {
+        if (nums == null || nums.length <= 0) {
+            return 0;
+        }
+        int cur = nums[0];
+        int max = cur;
+        for (int i = 1; i < nums.length; i++) {
+            cur = Math.max(cur, 0) + nums[i];
+            max = Math.max(max, cur);
+        }
+        return max;
+    }
+
+    /**
      * leetcode502 IPO
      *
      * @param k
@@ -825,25 +858,69 @@ public class LeetCodeUtil {
      * @return 个数
      */
     public static int findIntegers(int n) {
-        int isNum = 0;
-        int thisReminder;
-        int lastReminder = 0;
-        for (int i = n; i >=0; i--) {
-            int temp = i;
-            while (temp > 0) {
-                thisReminder = temp % 2;
-                if (thisReminder == 1 && lastReminder == 1) {
-//                    System.out.println("数字不符合条件:" + i);
+        int[] dp = new int[31];
+        dp[0] = dp[1] = 1;
+        for (int i = 2; i < 31; ++i) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        int pre = 0, res = 0;
+        for (int i = 29; i >= 0; --i) {
+            int val = 1 << i;
+            if ((n & val) != 0) {
+                res += dp[i + 1];
+                if (pre == 1) {
                     break;
                 }
-                temp /= 2;
-                lastReminder = thisReminder;
+                pre = 1;
+            } else {
+                pre = 0;
             }
-            if (temp == 0) {
-                isNum++;
+            if (i == 0) {
+                ++res;
             }
-            lastReminder = 0;
         }
-        return isNum;
+        return res;
+    }
+
+    /**
+     * 台阶走法
+     *
+     * @param n 顶层台阶
+     * @return 走法
+     */
+    public static int climbStairs(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        int[] res = new int[n];
+        res[0] = climbStairs(1);
+        res[1] = climbStairs(2);
+        for (int i = 2; i < n; i++) {
+            res[i] = res[i - 1] + res[i - 2];
+        }
+        return res[n - 1];
+    }
+
+    /**
+     * 打家劫舍
+     *
+     * @param nums
+     * @return
+     */
+    public static int rob(int[] nums) {
+        if (nums == null || nums.length <= 0) {
+            return 0;
+        }
+        int[][] dp = new int[nums.length][2];
+        dp[0][0] = 0;
+        dp[0][1] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+            dp[i][1] = dp[i - 1][0] + nums[i];
+        }
+        return Math.max(dp[nums.length - 1][0], dp[nums.length - 1][1]);
     }
 }
